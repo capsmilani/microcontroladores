@@ -1,0 +1,144 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Fri Jul 01 15:53:03 2016
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x0005c6
+       .config_2007_APS.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x0002e6      
+                            0x002007    0x002007      
+            741 out of 8454 program addresses used, program memory utilization is 8%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     AQUI   0x000153    program     static C:\Users\kraemer\Desktop\eita\MemoriasDec.inc
+          COPIA_RESOLUCAO   0x000082    program     static C:\Users\kraemer\Desktop\eita\lm35.inc
+      COPIA_RES_CONVERSAO   0x000078    program     static C:\Users\kraemer\Desktop\eita\lm35.inc
+            DECODE_DIGITO   0x000085    program     static C:\Users\kraemer\Desktop\eita\lm35.inc
+                    DELAY   0x0000e9    program     static C:\Users\kraemer\Desktop\eita\display.inc
+                      DIV   0x0001e8    program     static C:\Users\kraemer\Desktop\eita\math.inc
+             DIVIDE_16x16   0x0001cd    program     static C:\Users\kraemer\Desktop\eita\math.inc
+                 EMPRESTA   0x0001fe    program     static C:\Users\kraemer\Desktop\eita\math.inc
+                  ESCREVE   0x0000f2    program     static C:\Users\kraemer\Desktop\eita\display.inc
+           ESCREVE_E2PROM   0x00016a    program     static C:\Users\kraemer\Desktop\eita\MemoriasDec.inc
+              ESCR_E2PROM   0x00011a    program     static C:\Users\kraemer\Desktop\eita\display.inc
+                   ESPERA   0x0000ec    program     static C:\Users\kraemer\Desktop\eita\display.inc
+         ESPERA_CONVERSAO   0x000076    program     static C:\Users\kraemer\Desktop\eita\lm35.inc
+                  ESTADO1   0x000066    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                  ESTADO2   0x000067    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                  ESTADO3   0x000068    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                  ESTADO4   0x00006a    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                  ESTADO5   0x00006b    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                  ESTADO6   0x000072    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                  IMPRIME   0x0000fb    program     static C:\Users\kraemer\Desktop\eita\display.inc
+        INICIALIZA_E2PROM   0x00010e    program     static C:\Users\kraemer\Desktop\eita\display.inc
+                  INT_OUT   0x00001a    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                   Inicio   0x00001f    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+              Interrupcao   0x000004    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+              LEIT_E2PROM   0x000183    program     static C:\Users\kraemer\Desktop\eita\MemoriasDec.inc
+            LIMPA_POSICAO   0x000118    program     static C:\Users\kraemer\Desktop\eita\display.inc
+                LIMPA_RAM   0x000060    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+             LOOP_MEMORIA   0x000115    program     static C:\Users\kraemer\Desktop\eita\display.inc
+                  MEMORIA   0x00014d    program     static C:\Users\kraemer\Desktop\eita\MemoriasDec.inc
+               MULTIPLICA   0x0001ad    program     static C:\Users\kraemer\Desktop\eita\math.inc
+              MULTIPLICAX   0x0001c4    program     static C:\Users\kraemer\Desktop\eita\math.inc
+          MULTIPLICA_10x8   0x0001b4    program     static C:\Users\kraemer\Desktop\eita\math.inc
+           MULTIPLICA_4x4   0x000192    program     static C:\Users\kraemer\Desktop\eita\math.inc
+           MULTIPLICA_8x8   0x0001a3    program     static C:\Users\kraemer\Desktop\eita\math.inc
+                     Main   0x000066    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                   ON_LCD   0x0000b8    program     static C:\Users\kraemer\Desktop\eita\display.inc
+                    PROX1   0x00025e    program     static C:\Users\kraemer\Desktop\eita\user.inc
+                    PROX2   0x000264    program     static C:\Users\kraemer\Desktop\eita\user.inc
+                    PROX3   0x00026a    program     static C:\Users\kraemer\Desktop\eita\user.inc
+                    PROX4   0x000270    program     static C:\Users\kraemer\Desktop\eita\user.inc
+                      PWM   0x000133    program     static C:\Users\kraemer\Desktop\eita\pot.inc
+                 RECEPCAO   0x00000d    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                     SEND   0x000202    program     static C:\Users\kraemer\Desktop\eita\terminal.inc
+                   SENSOR   0x000075    program     static C:\Users\kraemer\Desktop\eita\lm35.inc
+            SUBTRAI_16x16   0x0001f4    program     static C:\Users\kraemer\Desktop\eita\math.inc
+                  TECLA_0   0x000134    program     static C:\Users\kraemer\Desktop\eita\pot.inc
+                  TECLA_1   0x00013a    program     static C:\Users\kraemer\Desktop\eita\pot.inc
+                  TECLA_2   0x000140    program     static C:\Users\kraemer\Desktop\eita\pot.inc
+                  TECLA_3   0x000146    program     static C:\Users\kraemer\Desktop\eita\pot.inc
+                    TEMPO   0x000011    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+             TESTA_MULT_1   0x0001b8    program     static C:\Users\kraemer\Desktop\eita\math.inc
+             TESTA_MULT_2   0x0001c0    program     static C:\Users\kraemer\Desktop\eita\math.inc
+               TESTE_ZERO   0x0001a5    program     static C:\Users\kraemer\Desktop\eita\math.inc
+              T_DIVIDENDO   0x0001d5    program     static C:\Users\kraemer\Desktop\eita\math.inc
+                  USUARIO   0x000256    program     static C:\Users\kraemer\Desktop\eita\user.inc
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+              Interrupcao   0x000004    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                 RECEPCAO   0x00000d    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                    TEMPO   0x000011    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                  INT_OUT   0x00001a    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                   Inicio   0x00001f    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                LIMPA_RAM   0x000060    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                     Main   0x000066    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                  ESTADO1   0x000066    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                  ESTADO2   0x000067    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                  ESTADO3   0x000068    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                  ESTADO4   0x00006a    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                  ESTADO5   0x00006b    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                  ESTADO6   0x000072    program     static C:\Users\kraemer\Desktop\eita\aps.asm
+                   SENSOR   0x000075    program     static C:\Users\kraemer\Desktop\eita\lm35.inc
+         ESPERA_CONVERSAO   0x000076    program     static C:\Users\kraemer\Desktop\eita\lm35.inc
+      COPIA_RES_CONVERSAO   0x000078    program     static C:\Users\kraemer\Desktop\eita\lm35.inc
+          COPIA_RESOLUCAO   0x000082    program     static C:\Users\kraemer\Desktop\eita\lm35.inc
+            DECODE_DIGITO   0x000085    program     static C:\Users\kraemer\Desktop\eita\lm35.inc
+                   ON_LCD   0x0000b8    program     static C:\Users\kraemer\Desktop\eita\display.inc
+                    DELAY   0x0000e9    program     static C:\Users\kraemer\Desktop\eita\display.inc
+                   ESPERA   0x0000ec    program     static C:\Users\kraemer\Desktop\eita\display.inc
+                  ESCREVE   0x0000f2    program     static C:\Users\kraemer\Desktop\eita\display.inc
+                  IMPRIME   0x0000fb    program     static C:\Users\kraemer\Desktop\eita\display.inc
+        INICIALIZA_E2PROM   0x00010e    program     static C:\Users\kraemer\Desktop\eita\display.inc
+             LOOP_MEMORIA   0x000115    program     static C:\Users\kraemer\Desktop\eita\display.inc
+            LIMPA_POSICAO   0x000118    program     static C:\Users\kraemer\Desktop\eita\display.inc
+              ESCR_E2PROM   0x00011a    program     static C:\Users\kraemer\Desktop\eita\display.inc
+                      PWM   0x000133    program     static C:\Users\kraemer\Desktop\eita\pot.inc
+                  TECLA_0   0x000134    program     static C:\Users\kraemer\Desktop\eita\pot.inc
+                  TECLA_1   0x00013a    program     static C:\Users\kraemer\Desktop\eita\pot.inc
+                  TECLA_2   0x000140    program     static C:\Users\kraemer\Desktop\eita\pot.inc
+                  TECLA_3   0x000146    program     static C:\Users\kraemer\Desktop\eita\pot.inc
+                  MEMORIA   0x00014d    program     static C:\Users\kraemer\Desktop\eita\MemoriasDec.inc
+                     AQUI   0x000153    program     static C:\Users\kraemer\Desktop\eita\MemoriasDec.inc
+           ESCREVE_E2PROM   0x00016a    program     static C:\Users\kraemer\Desktop\eita\MemoriasDec.inc
+              LEIT_E2PROM   0x000183    program     static C:\Users\kraemer\Desktop\eita\MemoriasDec.inc
+           MULTIPLICA_4x4   0x000192    program     static C:\Users\kraemer\Desktop\eita\math.inc
+           MULTIPLICA_8x8   0x0001a3    program     static C:\Users\kraemer\Desktop\eita\math.inc
+               TESTE_ZERO   0x0001a5    program     static C:\Users\kraemer\Desktop\eita\math.inc
+               MULTIPLICA   0x0001ad    program     static C:\Users\kraemer\Desktop\eita\math.inc
+          MULTIPLICA_10x8   0x0001b4    program     static C:\Users\kraemer\Desktop\eita\math.inc
+             TESTA_MULT_1   0x0001b8    program     static C:\Users\kraemer\Desktop\eita\math.inc
+             TESTA_MULT_2   0x0001c0    program     static C:\Users\kraemer\Desktop\eita\math.inc
+              MULTIPLICAX   0x0001c4    program     static C:\Users\kraemer\Desktop\eita\math.inc
+             DIVIDE_16x16   0x0001cd    program     static C:\Users\kraemer\Desktop\eita\math.inc
+              T_DIVIDENDO   0x0001d5    program     static C:\Users\kraemer\Desktop\eita\math.inc
+                      DIV   0x0001e8    program     static C:\Users\kraemer\Desktop\eita\math.inc
+            SUBTRAI_16x16   0x0001f4    program     static C:\Users\kraemer\Desktop\eita\math.inc
+                 EMPRESTA   0x0001fe    program     static C:\Users\kraemer\Desktop\eita\math.inc
+                     SEND   0x000202    program     static C:\Users\kraemer\Desktop\eita\terminal.inc
+                  USUARIO   0x000256    program     static C:\Users\kraemer\Desktop\eita\user.inc
+                    PROX1   0x00025e    program     static C:\Users\kraemer\Desktop\eita\user.inc
+                    PROX2   0x000264    program     static C:\Users\kraemer\Desktop\eita\user.inc
+                    PROX3   0x00026a    program     static C:\Users\kraemer\Desktop\eita\user.inc
+                    PROX4   0x000270    program     static C:\Users\kraemer\Desktop\eita\user.inc
+
+
