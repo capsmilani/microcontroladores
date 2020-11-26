@@ -1,0 +1,69 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Fri May 06 15:55:47 2016
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000002
+                   .org_1       code   0x000004    program   0x00010e
+                   .cinit    romdata   0x001800    program   0x000004
+       .config_2007_LED.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x00008a      
+                            0x001800    0x001801      
+                            0x002007    0x002007      
+            139 out of 8454 program addresses used, program memory utilization is 1%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                      AUX   0x000075    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+                ENROLAÇAO   0x000073    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+                      FIM   0x00004c    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+                   Inicio   0x000005    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+              Interrupcao   0x000004    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+                LIMPA_RAM   0x00001d    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+                     MAIN   0x000023    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+                   TABELA   0x00005b    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+            VALOR_INICIAL   0x000086    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_002D   0x00002d    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_0030   0x000030    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_0035   0x000035    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_0038   0x000038    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_003D   0x00003d    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_0040   0x000040    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_0045   0x000045    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_0048   0x000048    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+              Interrupcao   0x000004    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+                   Inicio   0x000005    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+                LIMPA_RAM   0x00001d    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+                     MAIN   0x000023    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_002D   0x00002d    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_0030   0x000030    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_0035   0x000035    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_0038   0x000038    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_003D   0x00003d    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_0040   0x000040    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_0045   0x000045    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+             _.org_1_0048   0x000048    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+                      FIM   0x00004c    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+                   TABELA   0x00005b    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+                ENROLAÇAO   0x000073    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+                      AUX   0x000075    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+            VALOR_INICIAL   0x000086    program     static D:\Faculdade\Micro\Lab03\LED.ASM
+
+

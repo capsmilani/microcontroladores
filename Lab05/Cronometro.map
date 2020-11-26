@@ -1,0 +1,70 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Tue May 10 14:16:10 2016
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x000150
+.config_2007_CRONOMETRO.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x0000ab      
+                            0x002007    0x002007      
+            170 out of 8454 program addresses used, program memory utilization is 2%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+            ATUALIZA_CRON   0x000066    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                     COME   0x000012    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                    DELAY   0x000078    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                  DELAY_1   0x00007c    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                  DELAY_2   0x00007a    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                  DELAY_3   0x00008d    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+               DELAY_DISP   0x00008b    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                      FIM   0x00006c    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                   Inicio   0x000017    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+              Interrupcao   0x000004    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+               LE_TECLADO   0x00009c    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                LIMPA_RAM   0x000035    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                     MAIN   0x000091    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                    PRINT   0x00006e    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+               RESET_CRON   0x00005c    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+               START_CRON   0x000059    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                STOP_CRON   0x000063    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                   TABELA   0x000047    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+              Interrupcao   0x000004    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                     COME   0x000012    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                   Inicio   0x000017    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                LIMPA_RAM   0x000035    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                   TABELA   0x000047    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+               START_CRON   0x000059    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+               RESET_CRON   0x00005c    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                STOP_CRON   0x000063    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+            ATUALIZA_CRON   0x000066    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                      FIM   0x00006c    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                    PRINT   0x00006e    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                    DELAY   0x000078    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                  DELAY_2   0x00007a    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                  DELAY_1   0x00007c    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+               DELAY_DISP   0x00008b    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                  DELAY_3   0x00008d    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+                     MAIN   0x000091    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+               LE_TECLADO   0x00009c    program     static C:\Users\Matheus\Desktop\Lab05\Cronometro.ASM
+
+

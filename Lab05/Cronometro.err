@@ -1,0 +1,22 @@
+Message[305] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 125 : Using default destination of 1 (file).
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 138 : Found opcode in column 1. (RETFIE)
+Warning[206] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 150 : Found call to macro in column 1. (BANK1)
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 154 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 156 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 158 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 160 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 162 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 164 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 166 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[206] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 167 : Found call to macro in column 1. (BANK0)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 234 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 243 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 256 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 265 : Found opcode in column 1. (RETURN)
+Message[305] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 274 : Using default destination of 1 (file).
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 292 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 329 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 355 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 365 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 388 : Found opcode in column 1. (GOTO)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB05\CRONOMETRO.ASM 410 : Found opcode in column 1. (RETURN)

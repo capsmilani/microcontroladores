@@ -1,0 +1,12 @@
+Warning[206] C:\USERS\MATHEUS\DESKTOP\LAB11\LAB11.ASM 110 : Found call to macro in column 1. (BANK1)
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB11\LAB11.ASM 112 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB11\LAB11.ASM 114 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB11\LAB11.ASM 116 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB11\LAB11.ASM 118 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB11\LAB11.ASM 120 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[206] C:\USERS\MATHEUS\DESKTOP\LAB11\LAB11.ASM 121 : Found call to macro in column 1. (BANK0)
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB11\LAB11.ASM 159 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[305] C:\USERS\MATHEUS\DESKTOP\LAB11\LAB11.ASM 164 : Using default destination of 1 (file).
+Message[305] C:\USERS\MATHEUS\DESKTOP\LAB11\LAB11.ASM 171 : Using default destination of 1 (file).
+Message[305] C:\USERS\MATHEUS\DESKTOP\LAB11\LAB11.ASM 178 : Using default destination of 1 (file).
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB11\LAB11.ASM 183 : Found opcode in column 1. (GOTO)

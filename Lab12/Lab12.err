@@ -1,0 +1,12 @@
+Warning[206] D:\FACULDADE\MICRO\LAB12\LAB12.ASM 110 : Found call to macro in column 1. (BANK1)
+Message[302] D:\FACULDADE\MICRO\LAB12\LAB12.ASM 114 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\FACULDADE\MICRO\LAB12\LAB12.ASM 116 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\FACULDADE\MICRO\LAB12\LAB12.ASM 118 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\FACULDADE\MICRO\LAB12\LAB12.ASM 120 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\FACULDADE\MICRO\LAB12\LAB12.ASM 122 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[206] D:\FACULDADE\MICRO\LAB12\LAB12.ASM 123 : Found call to macro in column 1. (BANK0)
+Message[302] D:\FACULDADE\MICRO\LAB12\LAB12.ASM 157 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] D:\FACULDADE\MICRO\LAB12\LAB12.ASM 158 : Found label after column 1. (TRANSMITINDO)
+Message[302] D:\FACULDADE\MICRO\LAB12\LAB12.ASM 159 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\FACULDADE\MICRO\LAB12\LAB12.ASM 161 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] D:\FACULDADE\MICRO\LAB12\LAB12.ASM 163 : Found opcode in column 1. (GOTO)

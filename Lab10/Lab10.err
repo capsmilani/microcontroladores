@@ -1,0 +1,10 @@
+Warning[206] C:\USERS\MATHEUS\DESKTOP\LAB10\LAB10.ASM 119 : Found call to macro in column 1. (BANK1)
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB10\LAB10.ASM 121 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB10\LAB10.ASM 123 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB10\LAB10.ASM 127 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB10\LAB10.ASM 129 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB10\LAB10.ASM 131 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB10\LAB10.ASM 133 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[206] C:\USERS\MATHEUS\DESKTOP\LAB10\LAB10.ASM 134 : Found call to macro in column 1. (BANK0)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB10\LAB10.ASM 165 : Found opcode in column 1. (MOVLW)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB10\LAB10.ASM 202 : Found opcode in column 1. (GOTO)

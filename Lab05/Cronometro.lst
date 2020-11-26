@@ -1,0 +1,934 @@
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00002 ; *                   CÓDIGO FONTE P/ DATAPOLL PIC-2377                     *
+                      00003 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00004 ; Projeto: Cronômetro
+                      00005 ; Aluno: Matheus Milani de Assunção     
+                      00006 ; Data: 15/04/2016
+                      00007 
+                      00008 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00009 ; *                             DESCRIÇÃO GERAL                             *
+                      00010 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00011 ; Utilize a interrupção do Timer 0 como referência para temporizar 1 segundo.
+                      00012 ; Escreva o tempo no display 7 segmentos: 00.00 (MM.SS).
+                      00013 ; Ao pressionar a tecla 1 deve iniciar a contagem do cronômetro, atualizando o
+                      00014 ; Display a cada segundo. Ao pressionar a tecla 2, a contagem deve ser parada.
+                      00015 ; Com a tecla 3 a contagem é zerada, voltando o display para 00.00.
+                      00016 
+                      00017 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00018 ; *                      CONFIGURAÇÃO DOS JUMPERS DE PLACA                  *
+                      00019 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00020 ; Habilitar o dip switch CH3,1-4 (posição ON para cima);
+                      00021 ; Habilitar todos os dips de CH4 (posição ON para cima);
+                      00022 ; Habilitar o dip CH5,1-4 (posição ON para cima);
+                      00023 ; Habilitar o dip CH6,1-4 (posição ON para cima);
+                      00024 ; Desabilitar as demais chaves DIP;
+                      00025 ; Manter o jumper J3 na posição B e J4 na posição A;
+                      00026 ; L1 – RC0; L2 – RC1; C1 – RB0; C2 – RB1...
+                      00027 ; RE0 habilita o display 7 segmentos;
+                      00028 ; D0 = ., D1 = g, D2 = f, D3 = e...
+                      00029 
+                      00030 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00031 ; *                         CONFIGURAÇÕES PARA GRAVAÇÃO                     *
+                      00032 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+2007   3739           00033  __CONFIG _WDT_OFF & _XT_OSC & _LVP_OFF & _DEBUG_ON & _BODEN_OFF
+                      00034 
+                      00035 ; _CP_OFF       ==> MEMÓRIA DE PROGRAMA DESPROTEGIDA CONTRA LEITURA.
+                      00036 ; _WRT_OFF      ==> SEM PERMISSÃO PARA ESCREVER NA MEMÓRIA DE PROGRAMA
+                      00037 ;                               DURANTE EXECUÇÃO DO PROGRAMA.
+                      00038 ; _DEBUG_ON     ==> DEBUG ATIVADO.
+                      00039 ; _CPD_OFF      ==> MEMÓRIA EEPROM PROTEGIDA CONTRA LEITURA.
+                      00040 ; _LVP_OFF      ==> PROGRAMAÇÃO EM BAIXA TENSÃO DESABILITADA.
+                      00041 ; _WDT_OFF      ==> WDT DESATIVADO.
+                      00042 ; _BODEN_OFF    ==> BROWN-OUT DESATIVADO. 
+                      00043 ; _PWRTE_ON     ==> POWER-ON RESET ATIVADO.
+                      00044 ; _XT_OSC       ==> OSCILADOR CRISTAL (4MHz).
+                      00045 
+                      00046 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00047 ;*                           ARQUIVOS DE DEFINIÇÕES                         *
+                      00048 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00049 #INCLUDE <P16F877.INC>          ;ARQUIVO PADRÃO MICROCHIP PARA 16F877
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F877 processor include
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00540         LIST
+                      00050 
+                      00051 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00052 ; *                         DEFINIÇÃO DAS CONSTANTES                        *
+                      00053 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  000000FA            00054 T1      EQU             .250
+                      00055 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00056 ; *                                     MACROS                              *
+                      00057 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00058 
+                      00059 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00060 ; *                            DEFINIÇÃO DAS VARIÁVEIS                      *
+                      00061 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00062 
+                      00063         CBLOCK  0x20                    ; POSIÇÃO INICIAL DA RAM
+  00000020            00064                 TEMPO_XMS                       ; VARIAVEL PARA DELAY
+  00000021            00065                 UAU                                     ; VARIAVEL PARA DELAY
+  00000022            00066                 SEG_UNI                         ; VARIAVEL PARA UNIDADE DE SEGUNDO
+  00000023            00067                 SEG_DEZ                         ; VARIAVEL PARA DEZENA DE SEGUNDO
+  00000024            00068                 MIN_UNI                         ; VARIAVEL PARA UNIDADE DE MINUTO
+  00000025            00069                 MIN_DEZ                         ; VARIAVEL PARA DEZENA DE MINUTO
+  00000026            00070                 SAVE_W                          ; VARIAVEL PARA GUARDAR O VALOR DE W NA INTERUPÇÃO
+  00000027            00071                 SAVE_STATUS                     ; VARIAVEL PARA GUARDAR O VALOR DE STATUS NA INTERRUPÇÃO
+  00000028            00072                 VAR                                     ; VARIAVEL RESPONSAVEL PARA AJUDAR NA CONTAGEM D
+                            E TMR0
+  00000029            00073                 FLAG                            ; VARIAVEL RESPONSAVEL PELA MAQUINA DE FLAGS
+  0000002A            00074                 QUAL_DISP
+                      00075         ENDC
+                      00076 
+                      00077 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00078 ; *                      DEFINIÇÃO DOS BANCOS DA RAM                        *
+                      00079 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00080 BANK0   MACRO                                   ;SELECIONA BANK0 DE MEMÓRIA.
+                      00081                                 bcf STATUS,RP1
+                      00082                                 bcf     STATUS,RP0
+                      00083                 ENDM                                    ;FIM DA MACRO BANK0.
+                      00084 
+                      00085 BANK1   MACRO                                   ;SELECIONA BANK1 DE MEMÓRIA.
+                      00086                                 bcf STATUS,RP1
+                      00087                                 bsf     STATUS,RP0
+                      00088                 ENDM                                    ;FIM DA MACRO BANK1.
+                      00089 
+                      00090 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00091 ; *                                 FLAG                                    *
+                      00092 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00093 
+                      00094 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00095 ; *                               ENTRADAS                                  *
+                      00096 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00097         
+                      00098 
+                      00099 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00100 ; *                                SAÍDAS                                   *
+                      00101 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00102 
+                      00103 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00104 ; *                   VETOR DE RESET DO MICROCONTROLADOR                    *
+                      00105 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+0000                  00106         ORG     0x00                    ;ENDEREÇO INICIAL DE PROCESSAMENTO.
+0000   2817           00107         goto    Inicio
+                      00108 
+                      00109 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00110 ; *               VETOR DE INTERRUPÇÃO DO MICROCONTROLADOR                  *
+                      00111 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00112 
+0004                  00113         ORG     0x04                    ; ENDEREÇO INICIAL DA INTERRUPÇÃO.
+0004                  00114 Interrupcao:                    ; FUNÇÃO PARA TRATAMENTO DA INTERRUPÇÃO
+                      00115 
+0004   00A6           00116         MOVWF   SAVE_W                  ; GUARDA O VALOR DE W
+0005   0E03           00117         SWAPF   STATUS,W                ; INVERTE OS NIBBLES PARA NÃO TER RISCO DE ALTERA-LOS
+0006   00A7           00118         MOVWF   SAVE_STATUS             ; GUARDA O STATUS
+                      00119 
+0007   1D0B           00120         BTFSS   INTCON, 2
+0008   2812           00121                 GOTO    COME
+0009   110B           00122         BCF             INTCON, 2
+000A   3006           00123         MOVLW   D'6'
+000B   0081           00124         MOVWF   TMR0
+Message[305]: Using default destination of 1 (file).
+000C   0BA8           00125         DECFSZ  VAR
+000D   2812           00126                 GOTO    COME
+000E   30FA           00127         MOVLW   D'250'
+000F   00A8           00128         MOVWF   VAR
+0010   1AA9           00129         BTFSC   FLAG, 5
+0011   0AA2           00130                 INCF    SEG_UNI, F
+0012                  00131 COME:
+                      00132 
+0012   0E27           00133         SWAPF    SAVE_STATUS, W
+0013   0083           00134         MOVWF    STATUS         ; RECUPERA STATUS
+0014   0EA6           00135         SWAPF    SAVE_W, F
+0015   0E26           00136         SWAPF    SAVE_W, W              
+                      00137 
+Warning[203]: Found opcode in column 1. (RETFIE)
+0016   0009           00138 RETFIE
+                      00139         
+                      00140         
+                      00141 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00142 ; *              CONFIGURAÇÕES INICIAIS DE HARDWARE E SOFTWARE              *
+                      00143 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00144 ; Nesta rotina são inicializadas as portas de I/O do microcontrolador, os
+                      00145 ; periféricos que serão usados e as configurações dos registradores 
+                      00146 ; especiais (SFR). 
+                      00147 
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0017                  00148 Inicio:
+                      00149 
+Warning[206]: Found call to macro in column 1. (BANK1)
+                      00150 BANK1                                   ; ALTERA PARA O BANCO 1.
+0017   1303               M                                 bcf STATUS,RP1
+0018   1683               M                                 bsf     STATUS,RP0
+0019   30A0           00151         MOVLW   B'10100000'             ;;
+001A   008B           00152         MOVWF   INTCON                  ;;
+001B   3005           00153         MOVLW   B'00000101'             ;; VALORES PARA FUNCIONAR O CONTADOR TMR0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+001C   0081           00154         MOVWF   OPTION_REG              ;;
+001D   3005           00155         MOVLW   B'00000101'             ;;
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+001E   009F           00156         MOVWF   ADCON1                  ;;
+001F   30DF           00157         MOVLW   B'11011111'             ; PORTA UTILIZADA COMO SAIDA RA5
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0020   0085           00158         MOVWF   TRISA
+0021   30FF           00159         MOVLW   B'11111111'             ; PORTAS UTILIZADAS COMO ENTRADA 0, 1 E 2
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0022   0086           00160         MOVWF   TRISB
+0023   30FE           00161         MOVLW   B'11111110'             ; PORTA UTILIZADA COMO SAIDA PORTA 0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0024   0087           00162         MOVWF   TRISC
+0025   3000           00163         MOVLW   B'00000000'             ; TODAS AS PORTAS D SÃO SAIDAS
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0026   0088           00164         MOVWF   TRISD
+0027   30F8           00165         MOVLW   B'11111000'             ; PORTAS UTILIZADAS COMO SAIDA 0, 1 E 2
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0028   0089           00166         MOVWF   TRISE
+Warning[206]: Found call to macro in column 1. (BANK0)
+                      00167 BANK0                                   ; RETORNA PARA O BANCO 0.
+0029   1303               M                                 bcf STATUS,RP1
+002A   1283               M                                 bcf     STATUS,RP0
+002B   30DF           00168         MOVLW   B'11011111'             ; VALOR PARA O TRANSISTOR PARA LIGAR O DISPLAY
+002C   0085           00169         MOVWF   PORTA
+002D   30FE           00170         MOVLW   B'11111110'             ; LINHA 0 É A UNICA LIGADA 
+002E   0087           00171         MOVWF   PORTC   
+002F   3000           00172         MOVLW   B'00000000'             ; VALORES DOS LED'S SÃO TODOS '1', APAGADO
+0030   0088           00173         MOVWF   PORTD                   
+0031   30F8           00174         MOVLW   B'11111000'             ; VALOR PARA OS TRANSISTORES PARA LIGAR O DISPLAY 
+0032   0089           00175         MOVWF   PORTE           
+                      00176 
+                      00177 
+                      00178 ;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00179 ;*                      INICIALIZAÇÃO DA RAM                       *
+                      00180 ;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00181 ;  LIMPA DE TODA A RAM DO BANC0 0, INDO DE 0X20 A 0X7F.
+0033   3020           00182         movlw   0x20
+0034   0084           00183         movwf   FSR                             ; APONTA O ENDEREÇAMENTO INDIRETO PARA
+                      00184                                                         ; A PRIMEIRA POSIÇÃO DA RAM.
+0035                  00185 LIMPA_RAM
+0035   0180           00186         clrf    INDF                    ; LIMPA A POSIÇÃO ATUAL.
+0036   0A84           00187         incf    FSR,F                   ; INCREMENTA PONTEIRO P/ A PRÓX. POS.
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0037   0804           00188         movf    FSR,W
+0038   3A80           00189         xorlw   0x80                    ; COMPARA PONTEIRO COM A ÚLT. POS. +1.
+0039   1D03           00190         btfss   STATUS,Z                ; JÁ LIMPOU TODAS AS POSIÇÕES?
+003A   2835           00191         goto    LIMPA_RAM               ; NÃO, LIMPA A PRÓXIMA POSIÇÃO.
+                      00192                                                         ; SIM, CONTINUA O PROGRAMA.
+                      00193 
+                      00194 ;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00195 ;*                      INICIALIZAÇÃO DAS VARIAVEIS                *
+                      00196 ;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+003B   3000           00197         MOVLW   B'00000000'                     ; MAQUINA DE FLAGS, SEMPRE ENTRA NA FLAG0 QUANDO INICIAL
+                            IZADA 
+003C   00A9           00198         MOVWF   FLAG
+003D   1429           00199         BSF             FLAG, 0
+003E   1629           00200         BSF             FLAG, 4
+003F   16A9           00201         BSF             FLAG, 5
+0040   307D           00202         MOVLW   D'125'                          ; VARxTMR0x64 = 4000000
+0041   00A8           00203         MOVWF   VAR
+0042   01A2           00204         CLRF    SEG_UNI                         ; VARIAVEL PARA UNIDADE DE SEGUNDO
+0043   01A3           00205         CLRF    SEG_DEZ                         ; VARIAVEL PARA DEZENA DE SEGUNDO
+0044   01A4           00206         CLRF    MIN_UNI                         ; VARIAVEL PARA UNIDADE DE MINUTO
+0045   01A5           00207         CLRF    MIN_DEZ                         ; VARIAVEL PARA DEZENA DE MINUTO
+0046   2891           00208         GOTO    MAIN
+                      00209 
+                      00210 ;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00211 ;*                      ROTINAS E SUBROTINAS                       *
+                      00212 ;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00213 
+                      00214 ;- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+0047                  00215 TABELA:
+                      00216         ;MOVFW  SEG_UNI
+0047   0782           00217         ADDWF   PCL, F                          ; ADICIONA O VALOR DA VARIAVEL AO PCL, QUE PULA PARA QUA
+                            L RETORNO DESEJA
+0048   3403           00218                 RETLW   B'00000011'             ; 0 - RETORNA OS VALORES PARA ACIONAR OS LED's    
+0049   349F           00219                 RETLW   B'10011111'             ; 1
+004A   3425           00220                 RETLW   B'00100101'             ; 2
+004B   340D           00221                 RETLW   B'00001101'             ; 3
+004C   3499           00222                 RETLW   B'10011001'             ; 4
+004D   3449           00223                 RETLW   B'01001001'             ; 5
+004E   3441           00224                 RETLW   B'01000001'             ; 6
+004F   341F           00225                 RETLW   B'00011111'             ; 7
+0050   3401           00226                 RETLW   B'00000001'             ; 8
+0051   3419           00227                 RETLW   B'00011001'             ; 9
+0052   3411           00228                 RETLW   B'00010001'             ; A
+0053   34C1           00229                 RETLW   B'11000001'             ; b
+0054   3463           00230                 RETLW   B'01100011'             ; C
+0055   3485           00231                 RETLW   B'10000101'             ; d
+0056   3461           00232                 RETLW   B'01100001'             ; E
+0057   3471           00233                 RETLW   B'01110001'             ; F
+Warning[203]: Found opcode in column 1. (RETURN)
+0058   0008           00234 RETURN
+                      00235 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                      00236 
+                      00237 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0059                  00238 START_CRON:
+                      00239 
+0059   16A9           00240         BSF     FLAG, 5
+005A   10A9           00241         BCF     FLAG, 1
+                      00242 
+Warning[203]: Found opcode in column 1. (RETURN)
+005B   0008           00243 RETURN
+                      00244 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                      00245 
+                      00246 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+005C                  00247 RESET_CRON:
+                      00248 
+005C   01A2           00249         CLRF    SEG_UNI                         ; VARIAVEL PARA UNIDADE DE SEGUNDO
+005D   01A3           00250         CLRF    SEG_DEZ                         ; VARIAVEL PARA DEZENA DE SEGUNDO
+005E   01A4           00251         CLRF    MIN_UNI                         ; VARIAVEL PARA UNIDADE DE MINUTO
+005F   01A5           00252         CLRF    MIN_DEZ                         ; VARIAVEL PARA DEZENA DE MINUTO
+0060   12A9           00253         BCF             FLAG, 5
+0061   1129           00254         BCF             FLAG, 2
+                      00255 
+Warning[203]: Found opcode in column 1. (RETURN)
+0062   0008           00256 RETURN
+                      00257 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                      00258 
+                      00259 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+0063                  00260 STOP_CRON:
+                      00261 
+0063   12A9           00262         BCF             FLAG, 5
+0064   11A9           00263         BCF             FLAG, 3
+                      00264 
+Warning[203]: Found opcode in column 1. (RETURN)
+0065   0008           00265 RETURN
+                      00266 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                      00267 
+                      00268 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+0066                  00269 ATUALIZA_CRON:
+0066   0822           00270         MOVF    SEG_UNI, W
+0067   3A0A           00271         XORLW   D'10'
+0068   1D03           00272         BTFSS   STATUS, Z
+0069   286C           00273                 GOTO    FIM
+Message[305]: Using default destination of 1 (file).
+006A   0AA3           00274         INCF    SEG_DEZ
+006B   01A2           00275         CLRF    SEG_UNI
+                      00276 
+                      00277         ;MOVF   SEG_DEZ, W
+                      00278         ;XORLW  D'6'
+                      00279         ;BTFSS  STATUS, Z
+                      00280         ;       GOTO    FIM
+                      00281         ;INCF   MIN_UNI
+                      00282         ;CLRF   SEG_DEZ
+                      00283 
+                      00284         ;MOVF   MIN_UNI, W
+                      00285         ;XORLW  D'10'
+                      00286         ;BTFSS  STATUS, Z
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00287         ;       GOTO    FIM
+                      00288         ;INCF   MIN_DEZ
+                      00289         ;CLRF   MIN_UNI
+006C                  00290 FIM:
+006C   206E           00291         CALL PRINT
+Warning[203]: Found opcode in column 1. (RETURN)
+006D   0008           00292 RETURN
+                      00293 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                      00294 
+                      00295 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+006E                  00296 PRINT:
+006E   30F8           00297         MOVLW   B'11111000'
+006F   0089           00298         MOVWF   PORTE
+                      00299         ;BCF            PORTE, 0
+                      00300         ;BSF            PORTE, 1
+                      00301         ;BSF            PORTE, 2
+                      00302         ;BSF            PORTA, 5
+0070   30FF           00303         MOVLW   B'11111111'
+0071   0085           00304         MOVWF   PORTA
+0072   300F           00305         MOVLW   B'00001111'
+0073   0522           00306         ANDWF   SEG_UNI, W
+                      00307         
+0074   2047           00308         CALL    TABELA
+                      00309         ;MOVLW  B'00011001'     
+0075   0088           00310         MOVWF   PORTD
+0076   2078           00311         CALL    DELAY
+                      00312 
+                      00313         ;MOVLW  B'11111101'
+                      00314         ;MOVWF  PORTE
+                      00315         ;BCF            PORTE, 0
+                      00316         ;BSF            PORTE, 1
+                      00317         ;BSF            PORTE, 2
+                      00318         ;BSF            PORTA, 5
+                      00319         ;MOVLW  B'11111111'
+                      00320         ;MOVWF  PORTA
+                      00321         ;MOVLW  B'00001111'
+                      00322         ;ANDWF  SEG_DEZ, W
+                      00323         
+                      00324         ;CALL   TABELA
+                      00325         ;MOVLW  B'00011001'     
+                      00326         ;MOVWF  PORTD
+                      00327         ;CALL   DELAY
+                      00328 
+Warning[203]: Found opcode in column 1. (RETURN)
+0077   0008           00329 RETURN
+                      00330 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                      00331 
+                      00332 
+                      00333 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+0078                  00334 DELAY:                                                  ; FUNÇÃO DELAY
+0078   30FA           00335         MOVLW   D'250'
+0079   00A1           00336         MOVWF   UAU     
+007A                  00337 DELAY_2:
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+007A   30FA           00338         MOVLW   T1                                      ; MOVE A CONST. DE TEMPO "250" PARA WORK
+007B   00A0           00339         MOVWF   TEMPO_XMS                               ; MOVE O CONTEUDO DE WORK PARA A VARIAVEL TEMPO_
+                            XMS
+007C                  00340 DELAY_1:
+007C   0000           00341         NOP                                                     ; REPETE-SE 10x NOP PARA DAR 10 CICLOS D
+                            E MAQUINA
+007D   0000           00342         NOP
+007E   0000           00343         NOP
+007F   0000           00344         NOP
+0080   0000           00345         NOP
+0081   0000           00346         NOP
+0082   0000           00347         NOP
+0083   0000           00348         NOP
+0084   0000           00349         NOP
+0085   0000           00350         NOP
+0086   0BA0           00351         DECFSZ  TEMPO_XMS,F                     ; DIMINUI TEMPO_XMS ATÉ QUE SEJA 0
+0087   287C           00352                 GOTO    DELAY_1
+0088   0BA1           00353         DECFSZ  UAU,F                           ; DECREMENTA UAU ATÉ QUE SEJA 0
+0089   287A           00354                 GOTO    DELAY_2
+Warning[203]: Found opcode in column 1. (RETURN)
+008A   0008           00355 RETURN
+                      00356 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                      00357 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+008B                  00358 DELAY_DISP:                                                     ; FUNÇÃO DELAY
+008B   3032           00359         MOVLW   D'50'
+008C   00A1           00360         MOVWF   UAU     
+008D                  00361 DELAY_3:
+008D   0000           00362         NOP
+008E   0BA1           00363         DECFSZ  UAU,F                           ; DECREMENTA UAU ATÉ QUE SEJA 0
+008F   288D           00364                 GOTO    DELAY_3
+Warning[203]: Found opcode in column 1. (RETURN)
+0090   0008           00365 RETURN
+                      00366 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                      00367 ; - -  
+                      00368 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00369 ; *                             ROTINA PRINCIPAL                                *
+                      00370 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+0091                  00371 MAIN
+                      00372 
+0091   1829           00373         BTFSC   FLAG, 0
+0092   209C           00374                 CALL    LE_TECLADO
+                      00375         
+0093   18A9           00376         BTFSC   FLAG, 1
+0094   2059           00377                 CALL    START_CRON
+                      00378 
+0095   1929           00379         BTFSC   FLAG, 2
+0096   205C           00380                 CALL    RESET_CRON
+                      00381 
+0097   19A9           00382         BTFSC   FLAG, 3
+0098   2063           00383                 CALL    STOP_CRON
+                      00384         
+0099   1A29           00385         BTFSC   FLAG, 4
+009A   2066           00386                 CALL    ATUALIZA_CRON
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00387 
+Warning[203]: Found opcode in column 1. (GOTO)
+009B   2891           00388 GOTO MAIN
+                      00389 
+                      00390 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+009C                  00391 LE_TECLADO
+009C   1C06           00392         BTFSS   PORTB, 0
+009D   28A1           00393                 GOTO    $ + 4
+                      00394 ;               CALL    DELAY
+009E   0000           00395                 NOP
+009F   1C06           00396                 BTFSS   PORTB, 0
+00A0   14A9           00397                         BSF     FLAG, 1 
+00A1   1C86           00398         BTFSS   PORTB, 1
+00A2   28A6           00399                 GOTO    $ + 4
+                      00400 ;               CALL    DELAY
+00A3   0000           00401                 NOP
+00A4   1C86           00402                 BTFSS   PORTB, 1
+00A5   1529           00403                         BSF     FLAG, 2
+00A6   1D06           00404         BTFSS   PORTB, 2
+00A7   28AB           00405                 GOTO    $ + 4
+                      00406 ;               CALL    DELAY
+00A8   0000           00407                 NOP
+00A9   1D06           00408                 BTFSS   PORTB, 2
+00AA   15A9           00409                         BSF     FLAG, 3
+Warning[203]: Found opcode in column 1. (RETURN)
+00AB   0008           00410 RETURN
+                      00411 ; - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+                      00412 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00413 ; *                             FIM DO PROGRAMA                             *
+                      00414 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                      00415         END                             ; FIM DO PROGRAMA
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+ATUALIZA_CRON                     00000066
+BANK0                             
+BANK1                             
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRGH                              00000002
+C                                 00000000
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2                             0000001B
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHS0                              00000003
+CHS1                              00000004
+CHS2                              00000005
+CKE                               00000006
+CKP                               00000004
+COME                              00000012
+CREN                              00000004
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CSRC                              00000007
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+DELAY                             00000078
+DELAY_1                           0000007C
+DELAY_2                           0000007A
+DELAY_3                           0000008D
+DELAY_DISP                        0000008B
+D_A                               00000005
+D_NOT_A                           00000005
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FIM                               0000006C
+FLAG                              00000029
+FSR                               00000004
+GCEN                              00000007
+GIE                               00000007
+GO                                00000002
+GO_DONE                           00000002
+GO_NOT_DONE                       00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+IBF                               00000007
+IBOV                              00000005
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+Inicio                            00000017
+Interrupcao                       00000004
+LE_TECLADO                        0000009C
+LIMPA_RAM                         00000035
+MAIN                              00000091
+MIN_DEZ                           00000025
+MIN_UNI                           00000024
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+NOT_DONE                          00000002
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OBF                               00000006
+OERR                              00000001
+OPTION_REG                        00000081
+P                                 00000004
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PRINT                             0000006E
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSPIE                             00000007
+PSPIF                             00000007
+PSPMODE                           00000004
+QUAL_DISP                         0000002A
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+READ_WRITE                        00000002
+RESET_CRON                        0000005C
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SAVE_STATUS                       00000027
+SAVE_W                            00000026
+SEG_DEZ                           00000023
+SEG_UNI                           00000022
+SEN                               00000000
+SMP                               00000007
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE 14
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPOV                             00000006
+SSPSTAT                           00000094
+START_CRON                        00000059
+STATUS                            00000003
+STOP_CRON                         00000063
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1                                000000FA
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TABELA                            00000047
+TEMPO_XMS                         00000020
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000088
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRMT                              00000001
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+UAU                               00000021
+VAR                               00000028
+W                                 00000000
+WCOL                              00000007
+WR                                00000001
+WREN                              00000002
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+WRERR                             00000003
+Z                                 00000002
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_ALL                           00000FCF
+_CP_HALF                          00001FDF
+_CP_OFF                           00003FFF
+_CP_UPPER_256                     00002FEF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         000037FF
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_WRT_ENABLE_OFF                   00003DFF
+_WRT_ENABLE_ON                    00003FFF
+_WRT_OFF                          00003DFF
+_WRT_ON                           00003FFF
+_XT_OSC                           00003FFD
+__16F877                          00000001
+__DEBUG                           1
+__MPLAB_DEBUGGER_ICD2             1
+MPASM  5.51                    CRONOMETRO.ASM   5-10-2016  14:16:09         PAGE 17
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXX---- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   169
+Program Memory Words Free:  8023
+
+
+Errors   :     0
+Warnings :    13 reported,     0 suppressed
+Messages :     9 reported,     0 suppressed
+
+

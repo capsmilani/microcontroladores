@@ -1,0 +1,94 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Mon May 09 21:44:58 2016
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x0001d8
+.config_2007_CRONOMETRONEW.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x0000ef      
+                            0x002007    0x002007      
+            238 out of 8454 program addresses used, program memory utilization is 2%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    DELAY   0x0000e3    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+            DELAY_display   0x0000ec    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  DISPLAY   0x000079    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                DISPLAY_1   0x000095    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                DISPLAY_2   0x0000a2    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                DISPLAY_3   0x0000af    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                DISPLAY_4   0x0000bc    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                 END_SHOW   0x0000c9    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                   ESPERA   0x0000e6    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                 ESTADO_0   0x000049    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                 ESTADO_1   0x00004b    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                 ESTADO_2   0x00004e    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                 ESTADO_3   0x000050    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                 ESTADO_4   0x000053    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  INT_OUT   0x000012    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                   Inicio   0x000017    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+              Interrupcao   0x000004    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+               LE_TECLADO   0x000057    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                LIMPA_RAM   0x000043    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                     Main   0x000049    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                    PAUSE   0x000071    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  RESTART   0x000073    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                     SHOW   0x000093    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                    START   0x00006f    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                   TABELA   0x0000cb    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  TABELA1   0x0000d7    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  TECLA_1   0x000058    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  TECLA_2   0x000060    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  TECLA_3   0x000067    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                Variaveis   0x000031    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+              Interrupcao   0x000004    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  INT_OUT   0x000012    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                   Inicio   0x000017    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                Variaveis   0x000031    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                LIMPA_RAM   0x000043    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                     Main   0x000049    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                 ESTADO_0   0x000049    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                 ESTADO_1   0x00004b    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                 ESTADO_2   0x00004e    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                 ESTADO_3   0x000050    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                 ESTADO_4   0x000053    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+               LE_TECLADO   0x000057    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  TECLA_1   0x000058    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  TECLA_2   0x000060    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  TECLA_3   0x000067    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                    START   0x00006f    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                    PAUSE   0x000071    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  RESTART   0x000073    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  DISPLAY   0x000079    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                     SHOW   0x000093    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                DISPLAY_1   0x000095    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                DISPLAY_2   0x0000a2    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                DISPLAY_3   0x0000af    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                DISPLAY_4   0x0000bc    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                 END_SHOW   0x0000c9    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                   TABELA   0x0000cb    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                  TABELA1   0x0000d7    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                    DELAY   0x0000e3    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+                   ESPERA   0x0000e6    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+            DELAY_display   0x0000ec    program     static C:\Users\Matheus\Desktop\cronometroNEW.asm
+
+

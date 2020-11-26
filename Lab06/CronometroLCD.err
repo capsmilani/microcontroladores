@@ -1,0 +1,21 @@
+Message[305] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 130 : Using default destination of 1 (file).
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 143 : Found opcode in column 1. (RETFIE)
+Warning[206] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 155 : Found call to macro in column 1. (BANK1)
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 159 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 161 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 163 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 165 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 167 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 169 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[206] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 170 : Found call to macro in column 1. (BANK0)
+Message[305] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 247 : Using default destination of 1 (file).
+Message[305] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 250 : Using default destination of 1 (file).
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 253 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 268 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 294 : Found opcode in column 1. (GOTO)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 319 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 327 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 340 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 348 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 390 : Found opcode in column 1. (RETURN)
+Warning[203] C:\USERS\MATHEUS\DESKTOP\LAB06\CRONOMETROLCD.ASM 453 : Found opcode in column 1. (RETURN)

@@ -1,0 +1,46 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Fri Jun 24 14:37:52 2016
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x000078
+     .config_2007_LAB11.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x00003f      
+                            0x002007    0x002007      
+            62 out of 8454 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   Inicio   0x000005    program     static C:\Users\Matheus\Desktop\Lab11\Lab11.ASM
+              Interrupcao   0x000004    program     static C:\Users\Matheus\Desktop\Lab11\Lab11.ASM
+                LIMPA_RAM   0x00001c    program     static C:\Users\Matheus\Desktop\Lab11\Lab11.ASM
+                     MAIN   0x000022    program     static C:\Users\Matheus\Desktop\Lab11\Lab11.ASM
+                      X_1   0x000033    program     static C:\Users\Matheus\Desktop\Lab11\Lab11.ASM
+                      X_2   0x000039    program     static C:\Users\Matheus\Desktop\Lab11\Lab11.ASM
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+              Interrupcao   0x000004    program     static C:\Users\Matheus\Desktop\Lab11\Lab11.ASM
+                   Inicio   0x000005    program     static C:\Users\Matheus\Desktop\Lab11\Lab11.ASM
+                LIMPA_RAM   0x00001c    program     static C:\Users\Matheus\Desktop\Lab11\Lab11.ASM
+                     MAIN   0x000022    program     static C:\Users\Matheus\Desktop\Lab11\Lab11.ASM
+                      X_1   0x000033    program     static C:\Users\Matheus\Desktop\Lab11\Lab11.ASM
+                      X_2   0x000039    program     static C:\Users\Matheus\Desktop\Lab11\Lab11.ASM
+
+

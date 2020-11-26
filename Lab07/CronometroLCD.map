@@ -1,0 +1,86 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Fri May 20 15:04:13 2016
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x0002b6
+.config_2007_CRONOMETROLCD.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x00015e      
+                            0x002007    0x002007      
+            349 out of 8454 program addresses used, program memory utilization is 4%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     AQUI   0x000103    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+            ATUALIZA_CRON   0x0000e5    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+            ATUALIZA_DISP   0x000104    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                     COME   0x000023    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                  DELAY_1   0x0000ad    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                 DELAY_MS   0x0000aa    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                  ESCREVE   0x0000b3    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+           INICIALIZA_LCD   0x00004c    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                   Inicio   0x000028    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+              Interrupcao   0x000004    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                   JAJAJA   0x000012    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+               LE_TECLADO   0x0000c4    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                LIMPA_RAM   0x000046    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                     MAIN   0x0000b7    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT1   0x00010f    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT2   0x000119    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT3   0x000123    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT4   0x00012c    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT5   0x000136    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT6   0x000140    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT7   0x000149    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT8   0x000153    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT9   0x00015d    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+               RESET_CRON   0x0000d8    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+               START_CRON   0x0000d4    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                STOP_CRON   0x0000e1    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+              Interrupcao   0x000004    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                   JAJAJA   0x000012    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                     COME   0x000023    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                   Inicio   0x000028    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                LIMPA_RAM   0x000046    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+           INICIALIZA_LCD   0x00004c    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                 DELAY_MS   0x0000aa    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                  DELAY_1   0x0000ad    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                  ESCREVE   0x0000b3    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                     MAIN   0x0000b7    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+               LE_TECLADO   0x0000c4    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+               START_CRON   0x0000d4    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+               RESET_CRON   0x0000d8    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                STOP_CRON   0x0000e1    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+            ATUALIZA_CRON   0x0000e5    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                     AQUI   0x000103    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+            ATUALIZA_DISP   0x000104    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT1   0x00010f    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT2   0x000119    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT3   0x000123    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT4   0x00012c    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT5   0x000136    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT6   0x000140    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT7   0x000149    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT8   0x000153    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+                    NEXT9   0x00015d    program     static D:\Faculdade\Micro\Lab07\CronometroLCD.ASM
+
+
