@@ -7,6 +7,8 @@ Figura 01 - Esquematico utilizado no projeto.
 
 # Atividades
 
+Para verificar os códigos basta abrir o arquivo .ASM, onde estará o código e os comentários devidos.
+
 ## Atividade 01 - Chaves e LED's
 Ao acionar chaves, os LEDs são ligados.Chave A liga LEDs 0 e 4, B liga LEDs 1 e 5, C liga LEDs 2 e 6, D liga LEDs 3 e 7;
 * Chave ligada, liga LED, chave desligada, desliga LED;
